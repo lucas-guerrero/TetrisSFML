@@ -1,16 +1,19 @@
 #ifndef GRID_GAME_DEF
 #define GRID_GAME_DEF
 #include "VarUtils.h"
-#include "TetrominoGame.h"
+#include <array>
 
 class GridGame
 {
 public:
 	int grid[GAME_WIDTH][GAME_HEIGHT];
 
-	void transpose(TetrominoGame& tetro);
+	int checkLine();
 
-	void checkLine();
+	bool* checkNeighbor(int indexX, int indexY);
+	bool isEmbedded(int indexX, int indexY);
+
+	bool isEndGame();
 
 private:
 	void deleteLine(int indiceLine);

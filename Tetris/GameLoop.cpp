@@ -13,18 +13,9 @@ void GameLoop::loadGame()
 {    
     sf::RenderWindow window(sf::VideoMode(GAME_WIDTH * SIZE_PIXELS, GAME_HEIGHT * SIZE_PIXELS), "Tetris SFML");
 
-    /*
-    Tetromino* tetro = new Tetromino();
-    
-    sf::Vector2i tetroZ1[4] = { sf::Vector2i(0,1), sf::Vector2i(1,1), sf::Vector2i(1,0), sf::Vector2i(2,0) };
-    sf::Vector2i tetroZ2[4] = { sf::Vector2i(0, 0), sf::Vector2i(0, 1), sf::Vector2i(1, 1), sf::Vector2i(1, 2) };
-    tetro->addTetromino(tetroZ1);
-    tetro->addTetromino(tetroZ2);
-    */
-
     Tetromino* tetro = data.getTetro();
 
-    TetrominoGame gameTetro = TetrominoGame();
+    TetrominoGame gameTetro = TetrominoGame(&grid);
     gameTetro.changeTetro(tetro);
 
 
@@ -51,22 +42,29 @@ void GameLoop::loadGame()
                 }
         }
 
-        gameTetro.down(0.05);
-        grid.checkLine();
-
-        if (gameTetro.isStop)
+        if (!grid.isEndGame())
         {
-            grid.transpose(gameTetro);
+            gameTetro.down(0.05);
+            int nbLigne = grid.checkLine();
+            if (nbLigne > 0) cout << nbLigne << endl;
 
-            tetro = data.getTetro();
-            gameTetro.changeTetro(tetro);
+            if (gameTetro.isStop)
+            {
+                gameTetro.transpose();
+
+                delete tetro;
+
+                tetro = data.getTetro();
+                gameTetro.changeTetro(tetro);
+            }
         }
-
+        else
+            cout << "END of GAME !!!" << endl;
 
         // Draw Grid
 
         sf::RectangleShape rec(sf::Vector2f(SIZE_PIXELS - 1, SIZE_PIXELS - 1));
-        rec.setFillColor(sf::Color::Magenta);
+        rec.setFillColor(sf::Color::Yellow);
 
         for (int i = 0; i < GAME_WIDTH; ++i)
         {

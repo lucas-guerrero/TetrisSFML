@@ -17,6 +17,7 @@ public:
 	void addTetromino(array<sf::Vector2i, 4> tetro);
 	array<sf::Vector2i, 4> getTetroActual();
 	void rotate();
+	void deRotate();
 };
 
 #endif // !DATA_TETROMINO_DEF
