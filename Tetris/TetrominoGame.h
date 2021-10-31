@@ -6,12 +6,13 @@
 class TetrominoGame
 {
 public:
-	GridGame* gridGame;
-	Tetromino* tetro;
+	GridGame *gridGame;
+	Tetromino *tetro;
 	float dx, dy;
 	bool isStop;
 
-	TetrominoGame(GridGame* grid);
+	TetrominoGame();
+	TetrominoGame(GridGame *grid);
 
 	void changeTetro(Tetromino* tetro_);
 	void rotate();
@@ -23,6 +24,7 @@ public:
 
 private:
 	float dxMax();
+	float dxMin();
 	void isEmbedded();
 	bool isCollision(int idCollision); // idCollision = 0 => gauche; 1 => bas; 2 => droite
 };

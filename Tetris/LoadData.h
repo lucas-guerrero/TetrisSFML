@@ -6,7 +6,7 @@
 class LoadData
 {
 private:
-	char listLettre[4] = { 'Z', 'S', 'O', 'I'};
+	char listLettre[7] = { 'Z', 'S', 'O', 'I', 'L', 'J', 'T'};
 
 public:
 

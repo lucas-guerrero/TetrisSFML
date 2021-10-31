@@ -1,12 +1,19 @@
-#include "LoadData.h"
-#include "GridGame.h"
+#ifndef GAME_LOOP_DEF
+#define GAME_LOOP_DEF
 
-class GameLoop
-{
+#include <SFML/Graphics.hpp>
+#include "ViewManager.h"
+#include "EventManager.h"
+#include "ModelManager.h"
+
+class GameLoop {
 public:
-	GridGame grid;
-	LoadData data;
+	ViewManager viewManager;
+	ModelManager modelManager;
+	EventManager eventManager;
+	sf::RenderWindow windows;
 
-	void initGame();
 	void loadGame();
 };
+
+#endif // !GAME_LOOP_DEF

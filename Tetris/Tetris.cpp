@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    GameLoop *gameLoop = new GameLoop();
+    GameLoop* gameLoop = new GameLoop();
     gameLoop->loadGame();
 
     return 0;
