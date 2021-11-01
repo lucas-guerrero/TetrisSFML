@@ -12,6 +12,7 @@ Tetromino *LoadData::getTetro(char tetromino)
 			array<sf::Vector2i, 4> tetroZ2 = { sf::Vector2i(0,1), sf::Vector2i(1,1), sf::Vector2i(1,0), sf::Vector2i(2,0) };
 			tetro->addTetromino(tetroZ1);
 			tetro->addTetromino(tetroZ2);
+			tetro->setColor(6);
 			break;
 		}
 		case 'S':
@@ -20,12 +21,14 @@ Tetromino *LoadData::getTetro(char tetromino)
 			array<sf::Vector2i, 4> tetroS2 = { sf::Vector2i(0,0), sf::Vector2i(1,0), sf::Vector2i(1,1), sf::Vector2i(2,1) };
 			tetro->addTetromino(tetroS1);
 			tetro->addTetromino(tetroS2);
+			tetro->setColor(7);
 			break;
 		}
 		case 'O':
 		{
 			array<sf::Vector2i, 4> tetroO1 = { sf::Vector2i(0,0), sf::Vector2i(1,0), sf::Vector2i(0,1), sf::Vector2i(1,1) };
 			tetro->addTetromino(tetroO1);
+			tetro->setColor(3);
 			break;
 		}
 		case 'I':
@@ -34,6 +37,7 @@ Tetromino *LoadData::getTetro(char tetromino)
 			array<sf::Vector2i, 4> tetroI2 = { sf::Vector2i(0,0), sf::Vector2i(1,0), sf::Vector2i(2,0), sf::Vector2i(3,0) };
 			tetro->addTetromino(tetroI1);
 			tetro->addTetromino(tetroI2);
+			tetro->setColor(2);
 			break;
 		}
 		case 'L':
@@ -46,6 +50,7 @@ Tetromino *LoadData::getTetro(char tetromino)
 			tetro->addTetromino(tetroL2);
 			tetro->addTetromino(tetroL3);
 			tetro->addTetromino(tetroL4);
+			tetro->setColor(4);
 			break;
 		}
 		case 'J':
@@ -58,6 +63,7 @@ Tetromino *LoadData::getTetro(char tetromino)
 			tetro->addTetromino(tetroJ2);
 			tetro->addTetromino(tetroJ3);
 			tetro->addTetromino(tetroJ4);
+			tetro->setColor(1);
 			break;
 		}
 		case 'T':
@@ -70,6 +76,7 @@ Tetromino *LoadData::getTetro(char tetromino)
 			tetro->addTetromino(tetroT2);
 			tetro->addTetromino(tetroT3);
 			tetro->addTetromino(tetroT4);
+			tetro->setColor(5);
 			break;
 		}
 	}

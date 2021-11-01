@@ -53,6 +53,17 @@ void TetrominoGame::down(double vitesse) {
 		isStop = true;
 }
 
+void TetrominoGame::drop() {
+	dy = ghostBlock().y;
+}
+
+sf::Vector2<float> TetrominoGame::ghostBlock() {
+	float y = dy;
+	while (y < dyMax() && !isCollisionY(y))
+		y++;
+	return sf::Vector2<float>(dx, y);
+}
+
 void TetrominoGame::transpose() {
 	int indiceX = dx / SIZE_PIXELS;
 	int indiceY = dy / SIZE_PIXELS;
@@ -60,7 +71,7 @@ void TetrominoGame::transpose() {
 	array<sf::Vector2i, 4> tetroTmp = tetro->getTetroActual();
 
 	for (int i = 0; i < 4; ++i) {
-		gridGame->grid[indiceX + tetroTmp[i].x][indiceY + tetroTmp[i].y] = 1;
+		gridGame->grid[indiceX + tetroTmp[i].x][indiceY + tetroTmp[i].y] = tetro->color;
 	}
 }
 
@@ -72,6 +83,16 @@ float TetrominoGame::dxMax() {
 		if (tmp[i].x > indiceMax) indiceMax = tmp[i].x;
 	}
 	return SIZE_PIXELS * ( GAME_WIDTH - indiceMax - 1);
+}
+
+float TetrominoGame::dyMax() {
+	array<sf::Vector2i, 4> tmp = tetro->getTetroActual();
+	int indiceMax = 0;
+	for (int i = 0; i < 4; ++i)
+	{
+		if (tmp[i].y > indiceMax) indiceMax = tmp[i].y;
+	}
+	return SIZE_PIXELS * (GAME_HEIGHT - indiceMax - 1);
 }
 
 float TetrominoGame::dxMin() {
@@ -96,6 +117,18 @@ void TetrominoGame::isEmbedded() {
 			return;
 		}
 	}
+}
+
+bool TetrominoGame::isCollisionY(float y) {
+	int indiceX = dx / SIZE_PIXELS;
+	int indiceY = y / SIZE_PIXELS;
+	array<sf::Vector2i, 4> tmp = tetro->getTetroActual();
+	for (int i = 0; i < 4; ++i)
+	{
+		if (gridGame->checkNeighbor(indiceX + tmp[i].x, indiceY + tmp[i].y)[1])
+			return true;
+	}
+	return false;
 }
 
 bool TetrominoGame::isCollision(int idCollision) {

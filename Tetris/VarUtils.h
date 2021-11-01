@@ -1,8 +1,13 @@
 #ifndef VAR_UTILS_DEF
 #define VAR_UTILS_DEF
 
+#define NB_TEXTURE_BLOCK 7
+
 #define SIZE_PIXELS 30
 #define GAME_WIDTH 10
 #define GAME_HEIGHT 20
+
+#define SPEED_DEFAULT 100
+#define LIMITE_FPS 100
 
 #endif // !VAR_UTILS_DEF

@@ -19,13 +19,18 @@ public:
 	void left();
 	void right();
 	void down(double vitesse);
+	void drop();
+
+	sf::Vector2<float> ghostBlock();
 
 	void transpose();
 
 private:
 	float dxMax();
 	float dxMin();
+	float dyMax();
 	void isEmbedded();
+	bool isCollisionY(float y);
 	bool isCollision(int idCollision); // idCollision = 0 => gauche; 1 => bas; 2 => droite
 };
 

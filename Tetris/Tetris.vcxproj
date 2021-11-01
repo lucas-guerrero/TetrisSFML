@@ -27,18 +27,34 @@
     <ClCompile Include="LoadData.cpp" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="TetrominoGame.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="ViewManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GridGame.h" />
     <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Tetromino.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="LoadData.h" />
     <ClInclude Include="TetrominoGame.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="VarUtils.h" />
     <ClInclude Include="ViewManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Tetris.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\BlockGhost.png" />
+    <Image Include="resources\tetris0.png" />
+    <Image Include="resources\tetris1.png" />
+    <Image Include="resources\tetris2.png" />
+    <Image Include="resources\tetris3.png" />
+    <Image Include="resources\tetris4.png" />
+    <Image Include="resources\tetris5.png" />
+    <Image Include="resources\tetris6.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

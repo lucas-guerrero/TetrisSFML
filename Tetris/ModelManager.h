@@ -8,6 +8,8 @@
 class ModelManager
 {
 public:
+	double fps = 0;
+	double speed = SPEED_DEFAULT;
 	GridGame grid = GridGame();
 	LoadData data = LoadData();
 	TetrominoGame gameTetro;
@@ -16,11 +18,7 @@ public:
 	ModelManager();
 
 	void initModel();
-	void updateModel(float delta);
-
-	void affich() {
-		grid.affich();
-	}
+	void updateModel(const double& freq);
 };
 
 #endif // !MODEL_MANAGER_DEF

@@ -9,10 +9,10 @@ void ModelManager::initModel() {
     gameTetro.changeTetro(tetro);
 }
 
-void ModelManager::updateModel(float delta) {
-
+void ModelManager::updateModel(const double &freq) {
+    fps = 1/freq;
     if (!grid.isEndGame()) {
-        gameTetro.down(0.05); // faire un truc avec delta
+        gameTetro.down(speed * freq);
         int nbLigne = grid.checkLine();
         if (nbLigne > 0) cout << nbLigne << endl;
 
@@ -25,4 +25,6 @@ void ModelManager::updateModel(float delta) {
             gameTetro.changeTetro(tetro);
         }
     }
+    else
+        cout << "End!!" << endl;
 }

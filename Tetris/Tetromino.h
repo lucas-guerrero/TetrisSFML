@@ -13,8 +13,10 @@ class Tetromino
 public:
 	vector<array<sf::Vector2i, 4>> listTetrominos; // vecteur d'un tableau representant un tetramino avec ces points locals. Ce vecteur utilise toutes les rotations du tetraminos mére
 	int rotation = 0;
+	int color = 0;
 
 	void addTetromino(array<sf::Vector2i, 4> tetro);
+	void setColor(int color);
 	array<sf::Vector2i, 4> getTetroActual();
 	void rotate();
 	void deRotate();

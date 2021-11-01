@@ -42,6 +42,9 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -71,5 +74,42 @@
     <ClInclude Include="EventManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Tetris.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\tetris0.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\tetris1.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\tetris2.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\tetris3.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\tetris4.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\tetris5.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\tetris6.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="resources\BlockGhost.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
