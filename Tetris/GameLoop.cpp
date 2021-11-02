@@ -4,7 +4,7 @@
 
 void GameLoop::loadGame() {
 
-    sf::RenderWindow windows(sf::VideoMode(GAME_WIDTH * SIZE_PIXELS, GAME_HEIGHT * SIZE_PIXELS), "Tetris SFML");
+    sf::RenderWindow windows(sf::VideoMode( RESOLUTION_X, RESOLUTION_Y), "Tetris SFML");
 
     viewManager = ViewManager(&modelManager, &textureManager);
     eventManager = EventManager(&modelManager);

@@ -1,12 +1,19 @@
 #include "GridGame.h"
 #include <vector>
+#include <iostream>
+
+void GridGame::restart() {
+	for (int i = 0; i < GAME_WIDTH; ++i)
+		for (int j = 0; j < GAME_HEIGHT; ++j)
+			grid[i][j] = 0;
+}
 
 int GridGame::checkLine() {
 	int nbLigneDelete = 0;
 	int j = GAME_HEIGHT - 1;
 	while (j >= 0) {
 		int i = 0;
-		while (grid[i][j] != 0 && i < GAME_WIDTH)
+		while (grid[i][j] > 0 && i < GAME_WIDTH)
 			++i;
 		if (i >= GAME_WIDTH) {
 			deleteLine(j);
@@ -35,14 +42,18 @@ bool* GridGame::checkNeighbor(int indexX, int indexY)
 
 bool GridGame::isEmbedded(int indexX, int indexY)
 {
-	return grid[indexX][indexY] != 1;
+	if (indexY > GAME_HEIGHT - 1 || indexY < 0)
+		return false;
+	else if (indexX > GAME_WIDTH - 1 || indexX < 0)
+		return false;
+	return grid[indexX][indexY] < 1;
 }
 
 
 bool GridGame::isEndGame()
 {
 	for (int i = 0; i < GAME_WIDTH; ++i)
-		if (grid[i][0] == 1)
+		if (grid[i][0] > 0)
 			return true;
 	return false;
 }

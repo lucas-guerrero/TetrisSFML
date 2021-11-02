@@ -20,5 +20,5 @@ void Tetromino::rotate() {
 
 void Tetromino::deRotate() {
 	--rotation;
-	if (rotation < 0) rotation = 0;
+	if (rotation < 0) rotation = listTetrominos.size()-1;
 }

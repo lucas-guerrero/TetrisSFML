@@ -16,8 +16,13 @@ TextureManager::TextureManager() {
 		texturesBlock[i].setSmooth(true);
 	}
 
-	texturesGhostBlock = sf::Texture();
 	if (!texturesGhostBlock.loadFromFile("resources/BlockGhost.png"))
 		throw runtime_error("Load Texture Ghost Block");
 	texturesGhostBlock.setSmooth(true);
+
+	if (!textureBr.loadFromFile("resources/brouillard.png"))
+		throw runtime_error("Load Texture Brouillard");
+
+	if (!fontClassique.loadFromFile("resources/ARCADE_N.TTF"))
+		throw runtime_error("Load Font Classic");
 }

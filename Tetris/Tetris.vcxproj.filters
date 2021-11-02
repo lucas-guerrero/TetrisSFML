@@ -112,4 +112,7 @@
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\ARCADE_N.TTF" />
+  </ItemGroup>
 </Project>

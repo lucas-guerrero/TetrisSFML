@@ -56,6 +56,9 @@
     <Image Include="resources\tetris5.png" />
     <Image Include="resources\tetris6.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="resources\ARCADE_N.TTF" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

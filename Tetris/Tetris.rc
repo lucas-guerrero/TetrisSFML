@@ -66,6 +66,14 @@ IDB_PNG7                PNG                     "resources\\tetris6.png"
 
 IDB_PNG8                PNG                     "resources\\BlockGhost.png"
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Font
+//
+
+IDR_FONT1               FONT                    "resources\\ARCADE_N.TTF"
+
 #endif    // Français (France) resources
 /////////////////////////////////////////////////////////////////////////////
 

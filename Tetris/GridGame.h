@@ -3,7 +3,6 @@
 
 #include "VarUtils.h"
 #include <array>
-#include <iostream>
 
 class GridGame
 {
@@ -16,6 +15,8 @@ public:
 	bool isEmbedded(int indexX, int indexY);
 
 	bool isEndGame();
+
+	void restart();
 
 private:
 	void deleteLine(int indiceLine);

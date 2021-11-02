@@ -3,12 +3,12 @@
 #include "Tetromino.h"
 #include "GridGame.h"
 
-class TetrominoGame
-{
+class TetrominoGame {
 public:
 	GridGame *gridGame;
 	Tetromino *tetro;
 	float dx, dy;
+	float timeCollision;
 	bool isStop;
 
 	TetrominoGame();
@@ -29,7 +29,7 @@ private:
 	float dxMax();
 	float dxMin();
 	float dyMax();
-	void isEmbedded();
+	bool isEmbedded();
 	bool isCollisionY(float y);
 	bool isCollision(int idCollision); // idCollision = 0 => gauche; 1 => bas; 2 => droite
 };

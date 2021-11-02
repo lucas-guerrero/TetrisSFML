@@ -15,10 +15,14 @@ void EventManager::updateEvent(float delta, sf::RenderWindow& windows) {
             if (!model->gameTetro.isStop && !model->grid.isEndGame())
             {
                 if (event.key.code == sf::Keyboard::Up) model->gameTetro.rotate();
-                if (event.key.code == sf::Keyboard::Down) model->gameTetro.down(25);
+                else if (event.key.code == sf::Keyboard::Down) model->gameTetro.down(25);
                 else if (event.key.code == sf::Keyboard::Left) model->gameTetro.left();
                 else if (event.key.code == sf::Keyboard::Right) model->gameTetro.right();
                 else if (event.key.code == sf::Keyboard::Space) model->gameTetro.drop();
+
+                else if (event.key.code == sf::Keyboard::F) model->modifyFpsHide();
             }
+            else
+                if (event.key.code == sf::Keyboard::R) model->restart();
     }
 }

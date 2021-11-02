@@ -8,6 +8,8 @@ class TextureManager {
 public:
 	std::array<sf::Texture, NB_TEXTURE_BLOCK> texturesBlock;
 	sf::Texture texturesGhostBlock;
+	sf::Texture textureBr;
+	sf::Font fontClassique;
 
 	TextureManager();
 };

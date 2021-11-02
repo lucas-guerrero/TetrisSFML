@@ -9,7 +9,7 @@ private:
 	char listLettre[7] = { 'Z', 'S', 'O', 'I', 'L', 'J', 'T'};
 
 public:
-
+	LoadData();
 	Tetromino *getTetro(char tetromino);
 	Tetromino* getTetro();
 };

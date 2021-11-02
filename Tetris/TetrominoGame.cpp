@@ -6,12 +6,14 @@ TetrominoGame::TetrominoGame() {
 	isStop = false;
 	dx = (GAME_WIDTH * SIZE_PIXELS) / 2 - SIZE_PIXELS;
 	dy = 0;
+	timeCollision = TIME_COLLISION;
 	gridGame = nullptr;
 }
 
 TetrominoGame::TetrominoGame(GridGame *grid): gridGame(grid) {
 	tetro = nullptr;
 	isStop = false;
+	timeCollision = TIME_COLLISION;
 	dx = (GAME_WIDTH * SIZE_PIXELS) / 2 - SIZE_PIXELS;
 	dy = 0;
 }
@@ -21,6 +23,7 @@ void TetrominoGame::changeTetro(Tetromino* tetro_) {
 	isStop = false;
 	dx = (GAME_WIDTH * SIZE_PIXELS)/2 - SIZE_PIXELS;
 	dy = 0;
+	timeCollision = TIME_COLLISION;
 }
 
 void TetrominoGame::rotate() {
@@ -34,6 +37,7 @@ void TetrominoGame::rotate() {
 	else if(dx <= minAfter)
 		dx = 0;
 	isEmbedded();
+	timeCollision = TIME_COLLISION;
 }
 
 void TetrominoGame::left() {
@@ -49,12 +53,17 @@ void TetrominoGame::right() {
 void TetrominoGame::down(double vitesse) {
 	if (!isCollision(1))
 		dy += vitesse;
-	else
-		isStop = true;
+	else {
+		if (timeCollision <= 0)
+			isStop = true;
+		else
+			timeCollision -= vitesse;
+	}
 }
 
 void TetrominoGame::drop() {
 	dy = ghostBlock().y;
+	isStop = true;
 }
 
 sf::Vector2<float> TetrominoGame::ghostBlock() {
@@ -105,7 +114,7 @@ float TetrominoGame::dxMin() {
 	return SIZE_PIXELS * (indiceMin-1);
 }
 
-void TetrominoGame::isEmbedded() {
+bool TetrominoGame::isEmbedded() {
 	int indiceX = dx / SIZE_PIXELS;
 	int indiceY = dy / SIZE_PIXELS;
 	array<sf::Vector2i, 4> tmp = tetro->getTetroActual();
@@ -114,9 +123,10 @@ void TetrominoGame::isEmbedded() {
 		if (!gridGame->isEmbedded(indiceX + tmp[i].x, indiceY + tmp[i].y))
 		{
 			tetro->deRotate();
-			return;
+			return true;
 		}
 	}
+	return false;
 }
 
 bool TetrominoGame::isCollisionY(float y) {

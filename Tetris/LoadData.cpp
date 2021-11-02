@@ -1,26 +1,31 @@
 #include "LoadData.h"
 #include <array>
+#include <ctime>
+
+LoadData::LoadData() {
+	srand(time(NULL));
+}
 
 Tetromino *LoadData::getTetro(char tetromino)
 {
 	Tetromino* tetro = new Tetromino();
 	switch (tetromino)
 	{
-		case 'Z':
+		case 'S':
 		{
 			array<sf::Vector2i, 4> tetroZ1 = { sf::Vector2i(0, 0), sf::Vector2i(0, 1), sf::Vector2i(1, 1), sf::Vector2i(1, 2) };
 			array<sf::Vector2i, 4> tetroZ2 = { sf::Vector2i(0,1), sf::Vector2i(1,1), sf::Vector2i(1,0), sf::Vector2i(2,0) };
-			tetro->addTetromino(tetroZ1);
 			tetro->addTetromino(tetroZ2);
+			tetro->addTetromino(tetroZ1);
 			tetro->setColor(6);
 			break;
 		}
-		case 'S':
+		case 'Z':
 		{
 			array<sf::Vector2i, 4> tetroS1 = { sf::Vector2i(1,0), sf::Vector2i(1,1), sf::Vector2i(0,1), sf::Vector2i(0,2) };
 			array<sf::Vector2i, 4> tetroS2 = { sf::Vector2i(0,0), sf::Vector2i(1,0), sf::Vector2i(1,1), sf::Vector2i(2,1) };
-			tetro->addTetromino(tetroS1);
 			tetro->addTetromino(tetroS2);
+			tetro->addTetromino(tetroS1);
 			tetro->setColor(7);
 			break;
 		}
@@ -35,8 +40,8 @@ Tetromino *LoadData::getTetro(char tetromino)
 		{
 			array<sf::Vector2i, 4> tetroI1 = { sf::Vector2i(0,0), sf::Vector2i(0,1), sf::Vector2i(0,2), sf::Vector2i(0,3) };
 			array<sf::Vector2i, 4> tetroI2 = { sf::Vector2i(0,0), sf::Vector2i(1,0), sf::Vector2i(2,0), sf::Vector2i(3,0) };
-			tetro->addTetromino(tetroI1);
 			tetro->addTetromino(tetroI2);
+			tetro->addTetromino(tetroI1);
 			tetro->setColor(2);
 			break;
 		}
