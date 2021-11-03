@@ -8,20 +8,30 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
 
     windows.clear(sf::Color::Black);
 
-    sf::Vertex lineLeft[] =
-    {
+    // Draw Extreminer grille
+    sf::Vertex lineGridLeft[] = {
         sf::Vertex(sf::Vector2f(POSITION_GAME, 0)),
         sf::Vertex(sf::Vector2f(POSITION_GAME, SIZE_PIXELS * GAME_HEIGHT))
     };
 
-    sf::Vertex lineRight[] =
-    {
+    sf::Vertex lineGridRight[] = {
         sf::Vertex(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * GAME_WIDTH + 1, 0)),
         sf::Vertex(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * GAME_WIDTH + 1, SIZE_PIXELS * GAME_HEIGHT))
     };
 
-    windows.draw(lineLeft, 2, sf::Lines);
-    windows.draw(lineRight, 2, sf::Lines);
+    windows.draw(lineGridLeft, 2, sf::Lines);
+    windows.draw(lineGridRight, 2, sf::Lines);
+
+    // Draw Espace tetromino: Reserve + Next
+    sf::RectangleShape espaceTetro(sf::Vector2f((SIZE_PIXELS/1.5) * 4 + 20, (SIZE_PIXELS / 1.5) * 4 + 20));
+    espaceTetro.setFillColor(sf::Color::Transparent);
+    espaceTetro.setOutlineThickness(1);
+
+    espaceTetro.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 10, POSITION_INTERFACE_Y - 10));
+    windows.draw(espaceTetro);
+
+    espaceTetro.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES - 10, POSITION_INTERFACE_Y - 10));
+    windows.draw(espaceTetro);
 
     // Draw Grid
     sf::Sprite sprite;
@@ -59,6 +69,30 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
             sprite.setPosition(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * block.x + positionGhost.x, SIZE_PIXELS * block.y + positionGhost.y));
             windows.draw(sprite);
         }
+
+        // Draw Next tetro
+        array<sf::Vector2i, 4> positionTetroNext = model->tetroSuivant->listTetrominos[0];
+        sprite.scale(sf::Vector2f(0.5, 0.5));
+        sprite.scale(sf::Vector2f(1.5, 1.5));
+        for (int i = 0; i < 4; ++i) {
+            sf::Vector2i block = positionTetroNext[i];
+
+            sprite.setTexture(texture->texturesBlock[model->tetroSuivant->color - 1]);
+            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.5) * block.x, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
+            windows.draw(sprite);
+        }
+
+        // Draw Tetro Reserve
+        if (model->tetroReserve != nullptr) {
+            array<sf::Vector2i, 4> positionTetroReserve = model->tetroReserve->listTetrominos[0];
+            for (int i = 0; i < 4; ++i) {
+                sf::Vector2i block = positionTetroReserve[i];
+
+                sprite.setTexture(texture->texturesBlock[model->tetroReserve->color - 1]);
+                sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.5) * block.x, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
+                windows.draw(sprite);
+            }
+        }
     }
 
     sf::RectangleShape flou(sf::Vector2f(RESOLUTION_X, RESOLUTION_Y));
@@ -72,6 +106,21 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
     text.setFillColor(sf::Color::White);
 
     stringstream ss;
+
+    ss << "Next";
+
+    text.setString(ss.str());
+    text.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + 15, 15));
+    windows.draw(text);
+
+    ss.str("");
+    ss << "Reserve";
+
+    text.setString(ss.str());
+    text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 12, 15));
+    windows.draw(text);
+
+    ss.str("");
     ss << "Levels: " << model->nbLevel;
 
     text.setString(ss.str());

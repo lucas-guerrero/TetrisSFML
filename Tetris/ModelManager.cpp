@@ -6,6 +6,7 @@ ModelManager::ModelManager() {
 }
 
 void ModelManager::initModel() {
+    tetroSuivant = data.getTetro();
     tetro = data.getTetro();
     gameTetro.changeTetro(tetro);
 }
@@ -16,6 +17,8 @@ void ModelManager::restart() {
     nbLine = 0;
     nbRow = 0;
     speed = SPEED_DEFAULT;
+    delete tetroReserve;
+    tetroReserve = nullptr;
 
     grid.restart();
 
@@ -38,12 +41,33 @@ void ModelManager::updateModel(const double &freq) {
         if (gameTetro.isStop) {
             gameTetro.transpose();
 
-            delete tetro;
+            isReserver = false;
 
-            tetro = data.getTetro();
+            delete tetro;
+            changeTetro();
+        }
+    }
+}
+
+void ModelManager::reserveTetro() {
+    if (tetroReserve == nullptr) {
+        isReserver = true;
+        tetroReserve = tetro;
+        changeTetro();
+    }
+    else {
+        if (!isReserver) {
+            isReserver = true;
+            swap(tetro, tetroReserve);
             gameTetro.changeTetro(tetro);
         }
     }
+}
+
+void ModelManager::changeTetro() {
+    tetro = tetroSuivant;
+    tetroSuivant = data.getTetro();
+    gameTetro.changeTetro(tetro);
 }
 
 void ModelManager::calculScore(const int& nbLigne) {
