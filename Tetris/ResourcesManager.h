@@ -4,14 +4,14 @@
 #include <array>
 #include "VarUtils.h"
 
-class TextureManager {
+class ResourcesManager {
 public:
 	std::array<sf::Texture, NB_TEXTURE_BLOCK> texturesBlock;
 	sf::Texture texturesGhostBlock;
-	sf::Texture textureBr;
+	sf::Texture textureFond;
 	sf::Font fontClassique;
 
-	TextureManager();
+	ResourcesManager();
 };
 
 #endif // !TEXTURE_MANAGER_DEF

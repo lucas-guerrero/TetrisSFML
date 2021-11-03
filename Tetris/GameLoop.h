@@ -5,11 +5,11 @@
 #include "ViewManager.h"
 #include "EventManager.h"
 #include "ModelManager.h"
-#include "TextureManager.h"
+#include "ResourcesManager.h"
 
 class GameLoop {
 public:
-	TextureManager textureManager;
+	ResourcesManager textureManager;
 	ViewManager viewManager;
 	ModelManager modelManager;
 	EventManager eventManager;

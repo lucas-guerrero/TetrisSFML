@@ -1,9 +1,9 @@
-#include "TextureManager.h"
+#include "ResourcesManager.h"
 #include <sstream>
 
 using namespace std;
 
-TextureManager::TextureManager() {
+ResourcesManager::ResourcesManager() {
 	texturesBlock = array<sf::Texture, NB_TEXTURE_BLOCK>();
 
 	stringstream ss;
@@ -20,8 +20,8 @@ TextureManager::TextureManager() {
 		throw runtime_error("Load Texture Ghost Block");
 	texturesGhostBlock.setSmooth(true);
 
-	if (!textureBr.loadFromFile("resources/brouillard.png"))
-		throw runtime_error("Load Texture Brouillard");
+	if (!textureFond.loadFromFile("resources/fond.jpg"))
+		throw runtime_error("Load Texture Fond");
 
 	if (!fontClassique.loadFromFile("resources/ARCADE_N.TTF"))
 		throw runtime_error("Load Font Classic");

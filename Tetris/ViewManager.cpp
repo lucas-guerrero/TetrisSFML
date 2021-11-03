@@ -2,11 +2,15 @@
 #include <sstream>
 
 ViewManager::ViewManager() : model(nullptr), texture(nullptr) { }
-ViewManager::ViewManager(ModelManager *model, TextureManager* texture): model(model), texture(texture) { }
+ViewManager::ViewManager(ModelManager *model, ResourcesManager* texture): model(model), texture(texture) { }
 
 void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
 
     windows.clear(sf::Color::Black);
+
+    sf::Sprite fond(texture->textureFond);
+    fond.setScale(sf::Vector2f(0.5, 0.5));
+    windows.draw(fond);
 
     // Draw Extreminer grille
     sf::Vertex lineGridLeft[] = {
@@ -22,16 +26,6 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
     windows.draw(lineGridLeft, 2, sf::Lines);
     windows.draw(lineGridRight, 2, sf::Lines);
 
-    // Draw Espace tetromino: Reserve + Next
-    sf::RectangleShape espaceTetro(sf::Vector2f((SIZE_PIXELS/1.5) * 4 + 20, (SIZE_PIXELS / 1.5) * 4 + 20));
-    espaceTetro.setFillColor(sf::Color::Transparent);
-    espaceTetro.setOutlineThickness(1);
-
-    espaceTetro.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 10, POSITION_INTERFACE_Y - 10));
-    windows.draw(espaceTetro);
-
-    espaceTetro.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES - 10, POSITION_INTERFACE_Y - 10));
-    windows.draw(espaceTetro);
 
     // Draw Grid
     sf::Sprite sprite;
@@ -78,7 +72,7 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
             sf::Vector2i block = positionTetroNext[i];
 
             sprite.setTexture(texture->texturesBlock[model->tetroSuivant->color - 1]);
-            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.5) * block.x, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
+            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.5) * block.x + 40, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
             windows.draw(sprite);
         }
 
@@ -89,11 +83,33 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
                 sf::Vector2i block = positionTetroReserve[i];
 
                 sprite.setTexture(texture->texturesBlock[model->tetroReserve->color - 1]);
-                sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.5) * block.x, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
+                sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.5) * block.x - 40, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
                 windows.draw(sprite);
             }
         }
     }
+
+    // Draw Espace tetromino: Reserve + Next
+    sf::RectangleShape espaceTetro(sf::Vector2f((SIZE_PIXELS / 1.5) * 4 + 20, (SIZE_PIXELS / 1.5) * 4 + 20));
+    espaceTetro.setFillColor(sf::Color::Transparent);
+    espaceTetro.setOutlineThickness(1);
+
+    espaceTetro.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 50, POSITION_INTERFACE_Y - 10));
+    windows.draw(espaceTetro);
+
+    espaceTetro.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + 30, POSITION_INTERFACE_Y - 10));
+    windows.draw(espaceTetro);
+
+    // Draw Power STOP
+    sf::RectangleShape powerContour(sf::Vector2f( LONGUEUR_POWER, SIZE_PIXELS));
+    powerContour.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 10, SIZE_PIXELS * (GAME_HEIGHT-3)));
+    powerContour.setFillColor(sf::Color::Transparent);
+    powerContour.setOutlineThickness(1);
+    windows.draw(powerContour);
+
+    sf::RectangleShape powerRec(sf::Vector2f( LONGUEUR_POWER * (model->power / 100), SIZE_PIXELS));
+    powerRec.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 10, SIZE_PIXELS * (GAME_HEIGHT - 3)));
+    windows.draw(powerRec);
 
     sf::RectangleShape flou(sf::Vector2f(RESOLUTION_X, RESOLUTION_Y));
     flou.setFillColor(sf::Color(0, 0, 0, 127));
@@ -107,17 +123,33 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
 
     stringstream ss;
 
+    if (model->power >= POWER_MAX) {
+        ss << "Ready";
+
+        text.setString(ss.str());
+        text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + 5, SIZE_PIXELS * (GAME_HEIGHT - 4)));
+        windows.draw(text);
+    }
+
+    ss.str("");
+    ss << "Power";
+
+    text.setString(ss.str());
+    text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 100, SIZE_PIXELS* (GAME_HEIGHT - 3) + 5));
+    windows.draw(text);
+
+    ss.str("");
     ss << "Next";
 
     text.setString(ss.str());
-    text.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + 15, 15));
+    text.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + 45, 15));
     windows.draw(text);
 
     ss.str("");
     ss << "Reserve";
 
     text.setString(ss.str());
-    text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 12, 15));
+    text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 50, 15));
     windows.draw(text);
 
     ss.str("");
@@ -157,6 +189,25 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
         text.setString(ss.str());
         text.setCharacterSize(25);
         text.setPosition(POSITION_GAMEOVER);
+        windows.draw(text);
+    }
+
+    if (model->isPause) {
+        windows.draw(flou);
+
+        ss.str("");
+        ss << "Press Escape to continue";
+
+        text.setString(ss.str());
+        text.setPosition(POSITION_CONTINUER);
+        windows.draw(text);
+
+        ss.str("");
+        ss << "PAUSE";
+
+        text.setString(ss.str());
+        text.setCharacterSize(25);
+        text.setPosition(POSITION_PAUSE);
         windows.draw(text);
     }
 

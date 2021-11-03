@@ -27,7 +27,7 @@
     <ClCompile Include="LoadData.cpp" />
     <ClCompile Include="Tetris.cpp" />
     <ClCompile Include="TetrominoGame.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="ResourcesManager.cpp" />
     <ClCompile Include="ViewManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +39,7 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="LoadData.h" />
     <ClInclude Include="TetrominoGame.h" />
-    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="ResourcesManager.h" />
     <ClInclude Include="VarUtils.h" />
     <ClInclude Include="ViewManager.h" />
   </ItemGroup>

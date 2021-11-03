@@ -3,17 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include "ModelManager.h"
-#include "TextureManager.h"
+#include "ResourcesManager.h"
 
 class ViewManager
 {
 public:
 	ModelManager* model;
-	TextureManager* texture;
+	ResourcesManager* texture;
 
 
 	ViewManager();
-	ViewManager(ModelManager *model, TextureManager* texture);
+	ViewManager(ModelManager *model, ResourcesManager* texture);
 
 	void updateView(float delta, sf::RenderWindow &windows);
 };

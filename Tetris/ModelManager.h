@@ -15,8 +15,12 @@ public:
 	double fps = 0;
 	double speed = SPEED_DEFAULT;
 
+	bool isPause = false;
 	bool isFpsHide = true;
 	bool isReserver = false;
+	bool powerUse = false;
+
+	float power = 0;
 
 	GridGame grid = GridGame();
 	LoadData data = LoadData();
@@ -30,6 +34,8 @@ public:
 	void initModel();
 	void updateModel(const double& freq);
 	void reserveTetro();
+	void usePower();
+	void pause();
 
 	void modifyFpsHide();
 

@@ -17,6 +17,7 @@ void ModelManager::restart() {
     nbLine = 0;
     nbRow = 0;
     speed = SPEED_DEFAULT;
+    power = 0;
     delete tetroReserve;
     tetroReserve = nullptr;
 
@@ -31,11 +32,19 @@ void ModelManager::modifyFpsHide() {
 
 void ModelManager::updateModel(const double &freq) {
     fps = 1/freq;
-    if (!grid.isEndGame()) {
-        gameTetro.down(speed * freq);
+    if (!grid.isEndGame() && !isPause) {
+        if (powerUse)
+            power -= POWER_USING * freq;
+        else
+            gameTetro.down(speed * freq);
         int nbLigne = grid.checkLine();
         if (nbLigne > 0) {
             calculScore(nbLigne);
+        }
+
+        if (powerUse && power <= 0) {
+            power = 0;
+            powerUse = false;
         }
 
         if (gameTetro.isStop) {
@@ -64,6 +73,16 @@ void ModelManager::reserveTetro() {
     }
 }
 
+void ModelManager::usePower() {
+    if(power >= POWER_MAX && !powerUse)
+        powerUse = true;
+}
+
+void ModelManager::pause() {
+    cout << "PAUSE" << endl;
+    isPause = !isPause;
+}
+
 void ModelManager::changeTetro() {
     tetro = tetroSuivant;
     tetroSuivant = data.getTetro();
@@ -87,6 +106,13 @@ void ModelManager::calculScore(const int& nbLigne) {
     }
     nbRow += nbLigne;
     nbLine += nbLigne;
+
+    if (!powerUse) {
+        power = power + nbLigne * POWER_LINE;
+        if (power > 100)
+            power = 100;
+    }
+
     if (nbLine >= 10) {
         augmentLevel();
     }
@@ -95,5 +121,5 @@ void ModelManager::calculScore(const int& nbLigne) {
 void ModelManager::augmentLevel() {
     ++nbLevel;
     nbLine = nbRow % 10;
-    speed += 20;
+    speed += UP_SPEED;
 }
