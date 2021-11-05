@@ -5,7 +5,12 @@ ModelManager::ModelManager() {
     gameTetro = TetrominoGame(&grid);
 }
 
+void ModelManager::setSoundManager(SoundManager* son) {
+    sound = son;
+}
+
 void ModelManager::initModel() {
+    sound->play();
     tetroSuivant = data.getTetro();
     tetro = data.getTetro();
     gameTetro.changeTetro(tetro);
@@ -56,6 +61,8 @@ void ModelManager::updateModel(const double &freq) {
             changeTetro();
         }
     }
+    if (grid.isEndGame())
+        sound->gameOver();
 }
 
 void ModelManager::reserveTetro() {
@@ -79,7 +86,6 @@ void ModelManager::usePower() {
 }
 
 void ModelManager::pause() {
-    cout << "PAUSE" << endl;
     isPause = !isPause;
 }
 

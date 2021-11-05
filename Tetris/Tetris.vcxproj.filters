@@ -45,6 +45,9 @@
     <ClCompile Include="ResourcesManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -80,6 +83,9 @@
     <ClInclude Include="resource.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Tetris.rc">
@@ -111,8 +117,14 @@
     <Image Include="resources\BlockGhost.png">
       <Filter>Fichiers de ressources</Filter>
     </Image>
+    <Image Include="resources\fond.jpg">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="resources\ARCADE_N.TTF" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="resources\tetris.mp3" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #ifndef TEXTURE_MANAGER_DEF
 #define TEXTURE_MANAGER_DEF
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <array>
 #include "VarUtils.h"
 

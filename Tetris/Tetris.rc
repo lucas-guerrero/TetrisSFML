@@ -77,10 +77,11 @@ IDR_FONT1               FONT                    "resources\\ARCADE_N.TTF"
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// itmaps
+// JPG
 //
 
-IDR_JPG1             JPG                  "resources\\fond.jpg"
+IDR_JPG1                JPG                     "resources\\fond.jpg"
+
 
 #endif    // Français (France) resources
 /////////////////////////////////////////////////////////////////////////////

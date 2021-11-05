@@ -3,13 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 #include "ModelManager.h"
+#include "SoundManager.h"
 
 class EventManager {
 public:
 	ModelManager *model;
+	SoundManager* son;
 
 	EventManager();
-	EventManager(ModelManager *model);
+	EventManager(ModelManager *model, SoundManager* son);
 	void updateEvent(float delta, sf::RenderWindow& windows);
 };
 

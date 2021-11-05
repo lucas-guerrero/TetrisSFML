@@ -6,6 +6,7 @@
 #include "EventManager.h"
 #include "ModelManager.h"
 #include "ResourcesManager.h"
+#include "SoundManager.h"
 
 class GameLoop {
 public:
@@ -13,6 +14,7 @@ public:
 	ViewManager viewManager;
 	ModelManager modelManager;
 	EventManager eventManager;
+	SoundManager soundManager;
 	sf::RenderWindow windows;
 
 	void loadGame();

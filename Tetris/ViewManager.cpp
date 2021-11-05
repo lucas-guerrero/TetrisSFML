@@ -66,13 +66,12 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
 
         // Draw Next tetro
         array<sf::Vector2i, 4> positionTetroNext = model->tetroSuivant->listTetrominos[0];
-        sprite.scale(sf::Vector2f(0.5, 0.5));
-        sprite.scale(sf::Vector2f(1.5, 1.5));
+        sprite.scale(sf::Vector2f(0.75, 0.75));
         for (int i = 0; i < 4; ++i) {
             sf::Vector2i block = positionTetroNext[i];
 
             sprite.setTexture(texture->texturesBlock[model->tetroSuivant->color - 1]);
-            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.5) * block.x + 40, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
+            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.25) * block.x + 32.5, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.25) * block.y));
             windows.draw(sprite);
         }
 
@@ -83,7 +82,7 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
                 sf::Vector2i block = positionTetroReserve[i];
 
                 sprite.setTexture(texture->texturesBlock[model->tetroReserve->color - 1]);
-                sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.5) * block.x - 40, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.5) * block.y));
+                sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.25) * block.x - 47.5, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.25) * block.y));
                 windows.draw(sprite);
             }
         }
@@ -124,10 +123,10 @@ void ViewManager::updateView(float delta, sf::RenderWindow& windows) {
     stringstream ss;
 
     if (model->power >= POWER_MAX) {
-        ss << "Ready";
+        ss << "Press C";
 
         text.setString(ss.str());
-        text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + 5, SIZE_PIXELS * (GAME_HEIGHT - 4)));
+        text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 10, SIZE_PIXELS * (GAME_HEIGHT - 4)));
         windows.draw(text);
     }
 

@@ -4,6 +4,7 @@
 #include "LoadData.h"
 #include "GridGame.h"
 #include "TetrominoGame.h"
+#include "SoundManager.h"
 
 class ModelManager
 {
@@ -28,8 +29,11 @@ public:
 	Tetromino* tetro = nullptr;
 	Tetromino* tetroSuivant = nullptr;
 	Tetromino* tetroReserve = nullptr;
+	SoundManager* sound = nullptr;
 
 	ModelManager();
+
+	void setSoundManager(SoundManager* sound);
 
 	void initModel();
 	void updateModel(const double& freq);
