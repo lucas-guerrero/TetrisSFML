@@ -10,8 +10,8 @@ void EventManager::updateEvent(float delta, sf::RenderWindow& windows) {
     {
         if (event.type == sf::Event::Closed) windows.close();
         else if (event.type == sf::Event::KeyPressed)
-            if (!model->gameTetro.isStop && !model->grid.isEndGame()) {
-                if (!model->isPause) {
+            if (model->status == ModelManager::Status::Game) {
+                if (model->statusGame == ModelManager::Game::In) {
                     if (event.key.code == sf::Keyboard::Up) model->gameTetro.rotate();
                     else if (event.key.code == sf::Keyboard::Down) model->gameTetro.down(25);
                     else if (event.key.code == sf::Keyboard::Left) model->gameTetro.left();
@@ -19,12 +19,22 @@ void EventManager::updateEvent(float delta, sf::RenderWindow& windows) {
                     else if (event.key.code == sf::Keyboard::Space) { son->tomber(); model->gameTetro.drop(); }
                     else if (event.key.code == sf::Keyboard::X) model->reserveTetro();
                     else if (event.key.code == sf::Keyboard::C) model->usePower();
-
-                    else if (event.key.code == sf::Keyboard::F) model->modifyFpsHide();
                 }
-                if (event.key.code == sf::Keyboard::Escape) { son->pause(); model->pause(); }
-            }
-            else
+                else if (model->statusGame == ModelManager::Game::Over)
+                    if (event.key.code == sf::Keyboard::Escape) model->status = ModelManager::Status::Menu;
                 if (event.key.code == sf::Keyboard::R) model->restart();
+                if (event.key.code == sf::Keyboard::Escape) model->pause();
+                if (event.key.code == sf::Keyboard::F) model->modifyFpsHide();
+            }
+            else {
+                if (model->statusMenu == ModelManager::Menu::Principal) {
+                    if (event.key.code == sf::Keyboard::Enter) model->initGame();
+                    else if (event.key.code == sf::Keyboard::H) model->statusMenu = ModelManager::Menu::Control;
+                    else if (event.key.code == sf::Keyboard::Escape) windows.close();
+                }
+                else
+                    if (event.key.code == sf::Keyboard::H) model->statusMenu = ModelManager::Menu::Principal;
+                if (event.key.code == sf::Keyboard::F) model->modifyFpsHide();
+            }
     }
 }

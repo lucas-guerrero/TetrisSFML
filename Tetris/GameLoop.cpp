@@ -5,14 +5,12 @@
 
 void GameLoop::loadGame() {
 
-    sf::RenderWindow windows(sf::VideoMode( RESOLUTION_X, RESOLUTION_Y), "Tetris SFML");
+    sf::RenderWindow windows(sf::VideoMode( RESOLUTION_X, RESOLUTION_Y), "Tetris SFML", sf::Style::Close);
 
     modelManager.setSoundManager(&soundManager);
 
     viewManager = ViewManager(&modelManager, &textureManager);
     eventManager = EventManager(&modelManager, &soundManager);
-
-    modelManager.initModel();
 
     sf::Time time;
     sf::Clock clock;

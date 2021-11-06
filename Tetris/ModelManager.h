@@ -9,6 +9,10 @@
 class ModelManager
 {
 public:
+	enum class Menu { Principal, Control };
+	enum class Game { In, Pause, Over };
+	enum class Status { Menu, Game };
+
 	int score = 0;
 	int nbLevel = 0;
 	int nbLine = 0;
@@ -16,12 +20,14 @@ public:
 	double fps = 0;
 	double speed = SPEED_DEFAULT;
 
-	bool isPause = false;
 	bool isFpsHide = true;
 	bool isReserver = false;
 	bool powerUse = false;
-
 	float power = 0;
+
+	Status status;
+	Menu statusMenu;
+	Game statusGame;
 
 	GridGame grid = GridGame();
 	LoadData data = LoadData();
@@ -32,10 +38,11 @@ public:
 	SoundManager* sound = nullptr;
 
 	ModelManager();
+	~ModelManager();
 
 	void setSoundManager(SoundManager* sound);
 
-	void initModel();
+	void initGame();
 	void updateModel(const double& freq);
 	void reserveTetro();
 	void usePower();

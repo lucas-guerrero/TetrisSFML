@@ -16,7 +16,7 @@ public:
 
 	bool isEndGame();
 
-	void restart();
+	void initGrid();
 
 private:
 	void deleteLine(int indiceLine);

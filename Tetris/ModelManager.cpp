@@ -3,32 +3,46 @@
 
 ModelManager::ModelManager() {
     gameTetro = TetrominoGame(&grid);
+    status = Status::Menu;
+    statusMenu = Menu::Principal;
+    statusGame = Game::In;
+}
+
+ModelManager::~ModelManager() {
+    delete tetro;
+    delete tetroSuivant;
+    delete tetroReserve;
 }
 
 void ModelManager::setSoundManager(SoundManager* son) {
     sound = son;
 }
 
-void ModelManager::initModel() {
-    sound->play();
-    tetroSuivant = data.getTetro();
-    tetro = data.getTetro();
-    gameTetro.changeTetro(tetro);
-}
-
-void ModelManager::restart() {
+void ModelManager::initGame() {
     score = 0;
     nbLevel = 0;
     nbLine = 0;
     nbRow = 0;
     speed = SPEED_DEFAULT;
     power = 0;
-    delete tetroReserve;
     tetroReserve = nullptr;
 
-    grid.restart();
+    grid.initGrid();
+    tetro = data.getTetro();
+    tetroSuivant = data.getTetro();
+    gameTetro.changeTetro(tetro);
 
-    initModel();
+    status = Status::Game;
+    statusGame = Game::In;
+    sound->play();
+}
+
+void ModelManager::restart() {
+    delete tetro;
+    delete tetroSuivant;
+    delete tetroReserve;
+
+    initGame();
 }
 
 void ModelManager::modifyFpsHide() {
@@ -37,15 +51,24 @@ void ModelManager::modifyFpsHide() {
 
 void ModelManager::updateModel(const double &freq) {
     fps = 1/freq;
-    if (!grid.isEndGame() && !isPause) {
+    if (status == Status::Game && statusGame == Game::In) {
         if (powerUse)
             power -= POWER_USING * freq;
-        else
+        else {
             gameTetro.down(speed * freq);
-        int nbLigne = grid.checkLine();
-        if (nbLigne > 0) {
-            calculScore(nbLigne);
+
+            if (power < POWER_MAX)
+                power += POWER_AUGMENT * freq;
         }
+
+        if (grid.isEndGame()) {
+            sound->gameOver();
+            statusGame = Game::Over;
+        }
+
+        int nbLigne = grid.checkLine();
+        if (nbLigne > 0) 
+            calculScore(nbLigne);
 
         if (powerUse && power <= 0) {
             power = 0;
@@ -61,8 +84,6 @@ void ModelManager::updateModel(const double &freq) {
             changeTetro();
         }
     }
-    if (grid.isEndGame())
-        sound->gameOver();
 }
 
 void ModelManager::reserveTetro() {
@@ -86,7 +107,13 @@ void ModelManager::usePower() {
 }
 
 void ModelManager::pause() {
-    isPause = !isPause;
+    if (statusGame != Game::Over) {
+        sound->pause();
+        if (statusGame == Game::Pause)
+            statusGame = Game::In;
+        else
+            statusGame = Game::Pause;
+    }
 }
 
 void ModelManager::changeTetro() {
@@ -115,8 +142,8 @@ void ModelManager::calculScore(const int& nbLigne) {
 
     if (!powerUse) {
         power = power + nbLigne * POWER_LINE;
-        if (power > 100)
-            power = 100;
+        if (power > POWER_MAX)
+            power = POWER_MAX;
     }
 
     if (nbLine >= 10) {
