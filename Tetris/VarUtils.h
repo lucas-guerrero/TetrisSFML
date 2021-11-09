@@ -33,8 +33,8 @@
 #define POSITION_SOUS_TITRE_Y 100
 
 
-#define SPEED_DEFAULT 100
-#define UP_SPEED 30
+#define SPEED_DEFAULT 50
+#define UP_SPEED 15
 
 #define LIMITE_FPS 100
 

@@ -13,6 +13,7 @@ public:
 	SoundManager();
 	void pause();
 	void play();
+	void mute();
 	void tomber();
 	void gameOver();
 };

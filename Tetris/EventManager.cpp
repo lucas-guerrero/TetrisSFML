@@ -19,6 +19,7 @@ void EventManager::updateEvent(float delta, sf::RenderWindow& windows) {
                     else if (event.key.code == sf::Keyboard::Space) { son->tomber(); model->gameTetro.drop(); }
                     else if (event.key.code == sf::Keyboard::X) model->reserveTetro();
                     else if (event.key.code == sf::Keyboard::C) model->usePower();
+                    else if (event.key.code == sf::Keyboard::M) son->mute();
                 }
                 else if (model->statusGame == ModelManager::Game::Over)
                     if (event.key.code == sf::Keyboard::Escape) model->status = ModelManager::Status::Menu;

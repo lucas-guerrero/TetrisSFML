@@ -22,6 +22,13 @@ SoundManager::SoundManager() {
 	sonGameOver.setBuffer(bufferSonGameOver);
 }
 
+void SoundManager::mute() {
+	if(musicFond.getVolume() > 0)
+		musicFond.setVolume(0);
+	else
+		musicFond.setVolume(25);
+}
+
 void SoundManager::tomber() {
 	sonTomber.play();
 }
