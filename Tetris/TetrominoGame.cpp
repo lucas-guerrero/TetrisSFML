@@ -36,8 +36,29 @@ void TetrominoGame::rotate() {
 		dx = maxAfter;
 	else if(dx <= minAfter)
 		dx = 0;
-	isEmbedded();
-	timeCollision = TIME_COLLISION;
+	
+	if (isEmbedded()) {
+		if (tetro->color == 5)
+			tetro->deRotate(); // Le tetro "T" n'as pas besoin de verifier les cotés car il est tourne deja sur son centre
+		else {
+			bool isStop = false;
+			double i = 1;
+			while (i >= -1 && !isStop) {
+				double dxTmp = dx + i * SIZE_PIXELS;
+				if (!isEmbeddedIA(dxTmp, dy)) {
+					isStop = true;
+					dx = dxTmp;
+				}
+				--i;
+			}
+			if (!isStop)
+				tetro->deRotate();
+			else
+				timeCollision = TIME_COLLISION;
+		}
+	}
+	else
+		timeCollision = TIME_COLLISION;
 }
 
 void TetrominoGame::left() {
@@ -50,15 +71,17 @@ void TetrominoGame::right() {
 		dx += SIZE_PIXELS;
 }
 
-void TetrominoGame::down(double vitesse) {
+void TetrominoGame::down(double vitesseDown, double vitesseCollision) {
 	if (!isCollision(1))
-		dy += vitesse;
+		dy += vitesseDown;
 	else {
 		if (timeCollision <= 0)
 			isStop = true;
 		else
-			timeCollision -= vitesse;
+			timeCollision -= vitesseCollision;
 	}
+	if (!isCollision(1))
+		dy += vitesseDown;
 }
 
 void TetrominoGame::drop() {
@@ -66,11 +89,11 @@ void TetrominoGame::drop() {
 	isStop = true;
 }
 
-sf::Vector2<float> TetrominoGame::ghostBlock() {
-	float y = dy;
+sf::Vector2<double> TetrominoGame::ghostBlock() {
+	double y = dy;
 	while (y < dyMax() && !isCollisionY(y))
 		y++;
-	return sf::Vector2<float>(dx, y);
+	return sf::Vector2<double>(dx, y);
 }
 
 void TetrominoGame::transpose() {
@@ -118,11 +141,20 @@ bool TetrominoGame::isEmbedded() {
 	int indiceX = dx / SIZE_PIXELS;
 	int indiceY = dy / SIZE_PIXELS;
 	array<sf::Vector2i, 4> tmp = tetro->getTetroActual();
-	for (int i = 0; i < 4; ++i)
-	{
-		if (!gridGame->isEmbedded(indiceX + tmp[i].x, indiceY + tmp[i].y))
-		{
-			tetro->deRotate();
+	for (int i = 0; i < 4; ++i) {
+		if (!gridGame->isEmbedded(indiceX + tmp[i].x, indiceY + tmp[i].y)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool TetrominoGame::isEmbeddedIA(double dx, double dy) {
+	int indiceX = dx / SIZE_PIXELS;
+	int indiceY = dy / SIZE_PIXELS;
+	array<sf::Vector2i, 4> tmp = tetro->getTetroActual();
+	for (int i = 0; i < 4; ++i) {
+		if (!gridGame->isEmbedded(indiceX + tmp[i].x, indiceY + tmp[i].y)) {
 			return true;
 		}
 	}

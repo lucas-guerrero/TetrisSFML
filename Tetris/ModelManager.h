@@ -23,6 +23,7 @@ public:
 	bool isFpsHide = true;
 	bool isReserver = false;
 	bool powerUse = false;
+	bool isDown = false;
 	float power = 0;
 
 	Status status;
@@ -47,6 +48,9 @@ public:
 	void reserveTetro();
 	void usePower();
 	void pause();
+
+	void downPress();
+	void downRelease();
 
 	void modifyFpsHide();
 

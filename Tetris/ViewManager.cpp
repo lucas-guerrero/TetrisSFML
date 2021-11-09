@@ -80,11 +80,11 @@ void ViewManager::updateMenu(float delta, sf::RenderWindow& windows, sf::Text te
         text.setPosition(sf::Vector2f((RESOLUTION_X) / 2 - 135, (RESOLUTION_Y) / 2 + 50));
         windows.draw(text);
 
-        text.setString("Reserve: X");
+        text.setString("Hold: X");
         text.setPosition(sf::Vector2f((RESOLUTION_X) / 2 - 135, (RESOLUTION_Y) / 2 + 100));
         windows.draw(text);
 
-        text.setString("Power: C");
+        text.setString("Power (Stop): C");
         text.setPosition(sf::Vector2f((RESOLUTION_X) / 2 - 135, (RESOLUTION_Y) / 2 + 150));
         windows.draw(text);
     }
@@ -143,8 +143,8 @@ void ViewManager::affichUI(float delta, sf::RenderWindow& windows, sf::Text text
     text.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + 45, 15));
     windows.draw(text);
 
-    text.setString("Reserve");
-    text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 50, 15));
+    text.setString("Hold");
+    text.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT - 25, 15));
     windows.draw(text);
 
     ss.str("");
@@ -202,47 +202,49 @@ void ViewManager::updateGame(float delta, sf::RenderWindow& windows) {
         }
     }
 
-    array<sf::Vector2i, 4> tetroActual = model->gameTetro.tetro->getTetroActual();
+    if (model->statusGame == ModelManager::Game::In) {
+        array<sf::Vector2i, 4> tetroActual = model->gameTetro.tetro->getTetroActual();
 
-    // Draw Tetro Courant
-    for (int i = 0; i < 4; ++i) {
-        sf::Vector2i block = tetroActual[i];
-
-        sprite.setTexture(texture->texturesBlock[model->gameTetro.tetro->color - 1]);
-        sprite.setPosition(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * block.x + model->gameTetro.dx, SIZE_PIXELS * block.y + model->gameTetro.dy));
-        windows.draw(sprite);
-    }
-
-    // Draw Ghost Tetro Courant
-    sf::Vector2<float> positionGhost = model->gameTetro.ghostBlock();
-    for (int i = 0; i < 4; ++i) {
-        sf::Vector2i block = tetroActual[i];
-
-        sprite.setTexture(texture->texturesGhostBlock);
-        sprite.setPosition(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * block.x + positionGhost.x, SIZE_PIXELS * block.y + positionGhost.y));
-        windows.draw(sprite);
-    }
-
-    // Draw Next tetro
-    array<sf::Vector2i, 4> positionTetroNext = model->tetroSuivant->listTetrominos[0];
-    sprite.scale(sf::Vector2f(0.75, 0.75));
-    for (int i = 0; i < 4; ++i) {
-        sf::Vector2i block = positionTetroNext[i];
-
-        sprite.setTexture(texture->texturesBlock[model->tetroSuivant->color - 1]);
-        sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.25) * block.x + 32.5, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.25) * block.y));
-        windows.draw(sprite);
-    }
-
-    // Draw Tetro Reserve
-    if (model->tetroReserve != nullptr) {
-        array<sf::Vector2i, 4> positionTetroReserve = model->tetroReserve->listTetrominos[0];
+        // Draw Tetro Courant
         for (int i = 0; i < 4; ++i) {
-            sf::Vector2i block = positionTetroReserve[i];
+            sf::Vector2i block = tetroActual[i];
 
-            sprite.setTexture(texture->texturesBlock[model->tetroReserve->color - 1]);
-            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.25) * block.x - 47.5, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.25) * block.y));
+            sprite.setTexture(texture->texturesBlock[model->gameTetro.tetro->color - 1]);
+            sprite.setPosition(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * block.x + model->gameTetro.dx, SIZE_PIXELS * block.y + model->gameTetro.dy));
             windows.draw(sprite);
+        }
+
+        // Draw Ghost Tetro Courant
+        sf::Vector2<double> positionGhost = model->gameTetro.ghostBlock();
+        for (int i = 0; i < 4; ++i) {
+            sf::Vector2i block = tetroActual[i];
+
+            sprite.setTexture(texture->texturesGhostBlock);
+            sprite.setPosition(sf::Vector2f(POSITION_GAME + SIZE_PIXELS * block.x + positionGhost.x, SIZE_PIXELS * block.y + positionGhost.y));
+            windows.draw(sprite);
+        }
+
+        // Draw Next tetro
+        array<sf::Vector2i, 4> positionTetroNext = model->tetroSuivant->listTetrominos[0];
+        sprite.scale(sf::Vector2f(0.75, 0.75));
+        for (int i = 0; i < 4; ++i) {
+            sf::Vector2i block = positionTetroNext[i];
+
+            sprite.setTexture(texture->texturesBlock[model->tetroSuivant->color - 1]);
+            sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_APRES + (SIZE_PIXELS / 1.25) * block.x + 32.5, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.25) * block.y));
+            windows.draw(sprite);
+        }
+
+        // Draw Tetro Reserve
+        if (model->tetroReserve != nullptr) {
+            array<sf::Vector2i, 4> positionTetroReserve = model->tetroReserve->listTetrominos[0];
+            for (int i = 0; i < 4; ++i) {
+                sf::Vector2i block = positionTetroReserve[i];
+
+                sprite.setTexture(texture->texturesBlock[model->tetroReserve->color - 1]);
+                sprite.setPosition(sf::Vector2f(POSITION_INTERFACE_AVANT + (SIZE_PIXELS / 1.25) * block.x - 47.5, POSITION_INTERFACE_Y + (SIZE_PIXELS / 1.25) * block.y));
+                windows.draw(sprite);
+            }
         }
     }
 }

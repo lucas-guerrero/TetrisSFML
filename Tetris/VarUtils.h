@@ -35,10 +35,11 @@
 
 #define SPEED_DEFAULT 50
 #define UP_SPEED 15
+#define SPEED_DOWN 500
 
 #define LIMITE_FPS 100
 
-#define TIME_COLLISION LIMITE_FPS / 2
+#define TIME_COLLISION 50
 
 #define POWER_LINE 5
 #define POWER_MAX 100

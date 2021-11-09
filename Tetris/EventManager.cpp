@@ -9,11 +9,11 @@ void EventManager::updateEvent(float delta, sf::RenderWindow& windows) {
     while (windows.pollEvent(event))
     {
         if (event.type == sf::Event::Closed) windows.close();
-        else if (event.type == sf::Event::KeyPressed)
+        else if (event.type == sf::Event::KeyPressed) {
             if (model->status == ModelManager::Status::Game) {
                 if (model->statusGame == ModelManager::Game::In) {
                     if (event.key.code == sf::Keyboard::Up) model->gameTetro.rotate();
-                    else if (event.key.code == sf::Keyboard::Down) model->gameTetro.down(25);
+                    else if (event.key.code == sf::Keyboard::Down) model->downPress();
                     else if (event.key.code == sf::Keyboard::Left) model->gameTetro.left();
                     else if (event.key.code == sf::Keyboard::Right) model->gameTetro.right();
                     else if (event.key.code == sf::Keyboard::Space) { son->tomber(); model->gameTetro.drop(); }
@@ -37,5 +37,13 @@ void EventManager::updateEvent(float delta, sf::RenderWindow& windows) {
                     if (event.key.code == sf::Keyboard::H) model->statusMenu = ModelManager::Menu::Principal;
                 if (event.key.code == sf::Keyboard::F) model->modifyFpsHide();
             }
+        }
+        else if (event.type == sf::Event::KeyReleased) {
+            if (model->status == ModelManager::Status::Game) {
+                if (model->statusGame == ModelManager::Game::In) {
+                    if (event.key.code == sf::Keyboard::Down) model->downRelease();
+                }
+            }
+        }
     }
 }

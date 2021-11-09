@@ -55,7 +55,7 @@ void ModelManager::updateModel(const double &freq) {
         if (powerUse)
             power -= POWER_USING * freq;
         else {
-            gameTetro.down(speed * freq);
+            gameTetro.down(speed * freq, TIME_COLLISION * freq);
 
             if (power < POWER_MAX)
                 power += POWER_AUGMENT * freq;
@@ -84,6 +84,14 @@ void ModelManager::updateModel(const double &freq) {
             changeTetro();
         }
     }
+}
+
+void ModelManager::downPress() {
+    speed = SPEED_DOWN;
+}
+
+void ModelManager::downRelease() {
+    speed = SPEED_DEFAULT + ((double) UP_SPEED * nbLevel);
 }
 
 void ModelManager::reserveTetro() {
@@ -146,7 +154,7 @@ void ModelManager::calculScore(const int& nbLigne) {
             power = POWER_MAX;
     }
 
-    if (nbLine >= 10) {
+    if (nbLine >= 10 && nbLevel < 10) {
         augmentLevel();
     }
 }

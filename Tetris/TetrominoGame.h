@@ -7,8 +7,8 @@ class TetrominoGame {
 public:
 	GridGame *gridGame;
 	Tetromino *tetro;
-	float dx, dy;
-	float timeCollision;
+	double dx, dy;
+	double timeCollision;
 	bool isStop;
 
 	TetrominoGame();
@@ -18,10 +18,10 @@ public:
 	void rotate();
 	void left();
 	void right();
-	void down(double vitesse);
+	void down(double vitesseDown, double vitesseCollision);
 	void drop();
 
-	sf::Vector2<float> ghostBlock();
+	sf::Vector2<double> ghostBlock();
 
 	void transpose();
 
@@ -30,6 +30,7 @@ private:
 	float dxMin();
 	float dyMax();
 	bool isEmbedded();
+	bool isEmbeddedIA(double dx, double dy);
 	bool isCollisionY(float y);
 	bool isCollision(int idCollision); // idCollision = 0 => gauche; 1 => bas; 2 => droite
 };

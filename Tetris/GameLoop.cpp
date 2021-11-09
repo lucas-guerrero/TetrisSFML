@@ -6,6 +6,7 @@
 void GameLoop::loadGame() {
 
     sf::RenderWindow windows(sf::VideoMode( RESOLUTION_X, RESOLUTION_Y), "Tetris SFML", sf::Style::Close);
+    windows.setKeyRepeatEnabled(false);
 
     modelManager.setSoundManager(&soundManager);
 
