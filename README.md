@@ -1,7 +1,11 @@
 # TetrisSFML
 
-TetrisSFML est un projet scolaire dans le cadre d'un Master en jeux vidéo.
+TetrisSFML is a school project within the context of a Master in video games.
 
-## Auteur
+## Author
 
 Lucas GUERRERO
+
+## Download Game
+
+click to [download](Game/TetrisSFML.zip)
